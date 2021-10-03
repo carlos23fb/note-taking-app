@@ -1,28 +1,80 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div class="notes-section">
+      <div class="columns">
+        <div class="column has-text-centered">
+          <strong>Notes</strong>
+          <div v-for="note in notes" :key="note" class="notes">
+            {{ note }}
+          </div>
+        </div>
+        <div class="column has-text-centered">
+          <strong>Timestamp</strong>
+          <div v-for="timestamp in timestamps" :key="timestamp" class="timestamps">
+            {{timestamp}}
+          </div>
+
+        </div>
+      </div>
+      <input-component @add-note="addNote" :placeholder="placeholder"></input-component>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import InputComponent from './components/InputComponent'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    'input-component': InputComponent
+
+  },
+  data() {
+    return {
+      notes: [],
+      timestamps: [],
+      placeholder: 'Enter a notes'
+    }
+  },
+  methods: {
+    addNote(event){
+      this.notes.push(event.note);
+      this.timestamps.push(event.timestamp)
+    }
   }
 }
 </script>
 
-<style>
+<style lang="css" scoped>
+html, body {
+  height: 100%;
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  height: inherit;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  -webkit-align-items: center;
+  justify-content: center;
+  -webkit-justify-content: center;
+}
+
+.notes-section {
+  width: 500px;
+}
+
+.columns {
+  width: 100%;
+}
+
+.notes, .timestamps {
+  padding: 5px 0px;
+}
+
+.note-count {
+  margin-top: 48px;
 }
 </style>

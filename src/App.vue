@@ -11,12 +11,12 @@
         <div class="column has-text-centered">
           <strong class="column-title">Timestamp</strong>
           <div v-for="timestamp in timestamps" :key="timestamp" class="timestamps">
-            {{timestamp}}
+            {{ timestamp }}
           </div>
 
         </div>
       </div>
-      <input-component  :placeholder="placeholder"></input-component>
+      <input-component :placeholder="placeholder"></input-component>
     </div>
     <note-count-component></note-count-component>
   </div>
@@ -25,7 +25,6 @@
 <script>
 import InputComponent from './components/InputComponent'
 import NoteCountComponent from "@/components/NoteCountComponent";
-import emitter from "@/main";
 
 
 export default {
@@ -37,19 +36,16 @@ export default {
   },
   data() {
     return {
-      notes: [],
-      timestamps: [],
       placeholder: 'Enter a notes'
     }
   },
-  methods: {
-    addNote(event){
-      this.notes.push(event.note);
-      this.timestamps.push(event.timestamp);
+  computed:{
+    notes(){
+      return this.$store.getters.getNotes;
+    },
+    timestamps(){
+      return this.$store.getters.getTimestamps;
     }
-  },
-  created(){
-    emitter.on("add-note", (event) => this.addNote(event))
   }
 }
 </script>
@@ -81,14 +77,13 @@ html, body {
 }
 
 
-
 .notes, .timestamps {
   padding: 5px 0px;
   color: #00d1b2;
 }
 
 
-.column-title{
+.column-title {
   color: #cfcfcf;
 }
 

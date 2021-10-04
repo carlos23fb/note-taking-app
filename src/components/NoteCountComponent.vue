@@ -4,20 +4,16 @@
 
 <script>
 
-import emitter from "@/main";
+
 
 
 export default {
   name: "NoteCountComponent",
-  data() {
-    return {
-      noteCount: 0
+
+  computed:{
+    noteCount(){
+      return this.$store.getters.getNoteCount
     }
-  },
-  created() {
-    emitter.on('add-note', () =>{
-      this.noteCount++;
-    })
   }
 
 }

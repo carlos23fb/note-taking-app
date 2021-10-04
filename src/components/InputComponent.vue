@@ -3,6 +3,7 @@
 </template>
 
 <script>
+import emitter from "@/main";
 export default {
   name: "InputComponent",
   props: ['placeholder'],
@@ -12,9 +13,9 @@ export default {
     }
   },
   emits: ["add-note"],
-  methods:{
-    monitorEnterKey(){
-      this.$emit("add-note", {
+  methods: {
+    monitorEnterKey() {
+      emitter.emit("add-note", {
         note: this.input,
         timestamp: new Date().toLocaleString()
       });
@@ -25,5 +26,6 @@ export default {
 </script>
 
 <style scoped>
+
 
 </style>
